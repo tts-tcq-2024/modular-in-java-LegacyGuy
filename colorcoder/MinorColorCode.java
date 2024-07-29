@@ -1,6 +1,9 @@
 package colorcoder;
 
-public enum MinorColor {
+/**
+ * Enum representing the secondary colors in the color coding system.
+ */
+public enum SecondaryColorCodeEnum {
     BLUE(0),
     ORANGE(1),
     GREEN(2),
@@ -9,7 +12,7 @@ public enum MinorColor {
 
     private int index;
 
-    private MinorColor(int index) {
+    private SecondaryColorCodeEnum(int index) {
         this.index = index;
     }
 
@@ -17,12 +20,12 @@ public enum MinorColor {
         return index;
     }
 
-    public static MinorColor fromIndex(int index) {
-        for (MinorColor color : MinorColor.values()) {
+    public static SecondaryColorCodeEnum fromIndex(int index) {
+        for (SecondaryColorCodeEnum color : SecondaryColorCodeEnum.values()) {
             if (color.getIndex() == index) {
                 return color;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Invalid index for SecondaryColorCodeEnum: " + index);
     }
 }
