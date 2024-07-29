@@ -1,23 +1,26 @@
 package colorcoder;
 
-public class ColorPair {
-    private MajorColor majorColor;
-    private MinorColor minorColor;
+/**
+ * Class representing a pair of primary and secondary colors.
+ */
+public class ColorPairRepresentation {
+    private PrimaryColorCodeEnum primaryColor;
+    private SecondaryColorCodeEnum secondaryColor;
 
-    public ColorPair(MajorColor major, MinorColor minor) {
-        this.majorColor = major;
-        this.minorColor = minor;
+    public ColorPairRepresentation(PrimaryColorCodeEnum primary, SecondaryColorCodeEnum secondary) {
+        this.primaryColor = primary;
+        this.secondaryColor = secondary;
     }
 
-    public MajorColor getMajor() {
-        return majorColor;
+    public PrimaryColorCodeEnum getPrimary() {
+        return primaryColor;
     }
 
-    public MinorColor getMinor() {
-        return minorColor;
+    public SecondaryColorCodeEnum getSecondary() {
+        return secondaryColor;
     }
 
     public String toString() {
-        return majorColor.name() + " " + minorColor.name();
+        return primaryColor.name() + " " + secondaryColor.name();
     }
 }
