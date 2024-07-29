@@ -1,37 +1,48 @@
 package colorcoder;
 
-public class ColorCodeUtility {
-    final static String[] MajorColorNames = {"White", "Red", "Black", "Yellow", "Violet"};
-    final static int numberOfMajorColors = MajorColorNames.length;
-    final static String[] MinorColorNames = {"Blue", "Orange", "Green", "Brown", "Slate"};
-    final static int numberOfMinorColors = MinorColorNames.length;
+/**
+ * Utility class for color coding operations.
+ */
+public class ColorCodeUtilityFunctions {
+    final static String[] PrimaryColorNames = {"White", "Red", "Black", "Yellow", "Violet"};
+    final static int numberOfPrimaryColors = PrimaryColorNames.length;
+    final static String[] SecondaryColorNames = {"Blue", "Orange", "Green", "Brown", "Slate"};
+    final static int numberOfSecondaryColors = SecondaryColorNames.length;
 
-    public static ColorPair getColorFromPairNumber(int pairNumber) {
+    /**
+     * Get the color pair corresponding to the given pair number.
+     * 
+     * @param pairNumber the pair number
+     * @return the corresponding color pair
+     */
+    public static ColorPairRepresentation getColorFromPairNumber(int pairNumber) {
+        if (pairNumber < 1 || pairNumber > numberOfPrimaryColors * numberOfSecondaryColors) {
+            throw new IllegalArgumentException("Invalid pair number: " + pairNumber);
+        }
         int zeroBasedPairNumber = pairNumber - 1;
-        MajorColor majorColor = MajorColor.fromIndex(zeroBasedPairNumber / numberOfMinorColors);
-        MinorColor minorColor = MinorColor.fromIndex(zeroBasedPairNumber % numberOfMinorColors);
-        return new ColorPair(majorColor, minorColor);
+        PrimaryColorCodeEnum primaryColor = PrimaryColorCodeEnum.fromIndex(zeroBasedPairNumber / numberOfSecondaryColors);
+        SecondaryColorCodeEnum secondaryColor = SecondaryColorCodeEnum.fromIndex(zeroBasedPairNumber % numberOfSecondaryColors);
+        return new ColorPairRepresentation(primaryColor, secondaryColor);
     }
 
-    public static int getPairNumberFromColor(MajorColor major, MinorColor minor) {
-        return major.getIndex() * numberOfMinorColors + minor.getIndex() + 1;
+    /**
+     * Get the pair number corresponding to the given color pair.
+     * 
+     * @param primary the primary color
+     * @param secondary the secondary color
+     * @return the corresponding pair number
+     */
+    public static int getPairNumberFromColor(PrimaryColorCodeEnum primary, SecondaryColorCodeEnum secondary) {
+        return primary.getIndex() * numberOfSecondaryColors + secondary.getIndex() + 1;
     }
 
+    /**
+     * Print the color coding reference manual.
+     */
     public static void printColorCodingReference() {
-        for (int i = 1; i <= numberOfMajorColors * numberOfMinorColors; i++) {
-            ColorPair pair = getColorFromPairNumber(i);
+        for (int i = 1; i <= numberOfPrimaryColors * numberOfSecondaryColors; i++) {
+            ColorPairRepresentation pair = getColorFromPairNumber(i);
             System.out.println(i + " - " + pair.toString());
         }
-    }
-
-    public static void testNumberToPair(int pairNumber, MajorColor expectedMajor, MinorColor expectedMinor) {
-        ColorPair colorPair = getColorFromPairNumber(pairNumber);
-        assert (colorPair.getMajor() == expectedMajor);
-        assert (colorPair.getMinor() == expectedMinor);
-    }
-
-    public static void testPairToNumber(MajorColor major, MinorColor minor, int expectedPairNumber) {
-        int pairNumber = getPairNumberFromColor(major, minor);
-        assert (pairNumber == expectedPairNumber);
     }
 }
