@@ -1,6 +1,9 @@
 package colorcoder;
 
-public enum MajorColor {
+/**
+ * Enum representing the primary colors in the color coding system.
+ */
+public enum PrimaryColorCodeEnum {
     WHITE(0),
     RED(1),
     BLACK(2),
@@ -9,7 +12,7 @@ public enum MajorColor {
 
     private int index;
 
-    private MajorColor(int index) {
+    private PrimaryColorCodeEnum(int index) {
         this.index = index;
     }
 
@@ -17,12 +20,12 @@ public enum MajorColor {
         return index;
     }
 
-    public static MajorColor fromIndex(int index) {
-        for (MajorColor color : MajorColor.values()) {
+    public static PrimaryColorCodeEnum fromIndex(int index) {
+        for (PrimaryColorCodeEnum color : PrimaryColorCodeEnum.values()) {
             if (color.getIndex() == index) {
                 return color;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Invalid index for PrimaryColorCodeEnum: " + index);
     }
 }
