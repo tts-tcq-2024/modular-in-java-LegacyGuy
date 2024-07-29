@@ -1,0 +1,25 @@
+package colorcoder;
+
+/**
+ * Test class for color coding operations.
+ */
+public class ColorCodeTestSuite {
+    public static void runTests() {
+        testNumberToPair(4, PrimaryColorCodeEnum.WHITE, SecondaryColorCodeEnum.BROWN);
+        testNumberToPair(5, PrimaryColorCodeEnum.WHITE, SecondaryColorCodeEnum.SLATE);
+
+        testPairToNumber(PrimaryColorCodeEnum.BLACK, SecondaryColorCodeEnum.ORANGE, 12);
+        testPairToNumber(PrimaryColorCodeEnum.VIOLET, SecondaryColorCodeEnum.SLATE, 25);
+    }
+
+    private static void testNumberToPair(int pairNumber, PrimaryColorCodeEnum expectedPrimary, SecondaryColorCodeEnum expectedSecondary) {
+        ColorPairRepresentation colorPair = ColorCodeUtilityFunctions.getColorFromPairNumber(pairNumber);
+        assert (colorPair.getPrimary() == expectedPrimary);
+        assert (colorPair.getSecondary() == expectedSecondary);
+    }
+
+    private static void testPairToNumber(PrimaryColorCodeEnum primary, SecondaryColorCodeEnum secondary, int expectedPairNumber) {
+        int pairNumber = ColorCodeUtilityFunctions.getPairNumberFromColor(primary, secondary);
+        assert (pairNumber == expectedPairNumber);
+    }
+}
